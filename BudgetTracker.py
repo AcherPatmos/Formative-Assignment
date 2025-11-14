@@ -1,11 +1,17 @@
 # I started with this greet_user function so that it will be creating a personalized experience for the user(s)
+# I included the  datetime library because I think the project will involve some kind of time manipulation
+
+from datetime import datetime, timedelta
+Transactions=[]
+
 def greet_user():
-    print("welcome to your BudgetTracker")
+    print("welcome to your BudgetTracker\n")
     name=input("please enter your name: ")
-    print("Hello"+" "+name+" "+"let's get started with your budget tracking!")
+    print("Hello"+" "+name+" "+"let's get started with your budget tracking!\n")
     return name
-greet_user()
+
 #I added in a menu section that would allow users to have options to choose from
+
 def menu():
     print("choose one of the options below")
     print("1. add transactions")
@@ -13,34 +19,49 @@ def menu():
     print("3. summarize budget")
     print("4. view transaction history")
     print("5. exit")
-menu()
+
+
+#I defined the add_transactions function so that it can give the user options to add in their transaction details
+#It then stores the transaction made in the dictionary created inside the add_transaction function and appends it to the Transactions list
 
 def add_transactions():
-    date=input("enter date of transaction: ")
+    date=input("enter date of transaction (dd/mm/yyyy): \n")
     amount=input("enter amount of transaction: ")
+    transaction_type=input("enter type of transaction: ")
     description=input("enter description of transaction: ")
-    print(f"Your transaction details are {date},{amount},{description}")
-choice=int(input("please enter your choice: "))
-if choice==1:
-    add_transactions()
+    transaction = {
+        "date": date,
+        "amount": amount,
+        "description": description,
+        "transaction_type": transaction_type
+    }
+    Transactions.append(transaction)
+    print("transaction added successfully\n")
 
-else:
-    print("You entered a wrong choice")
-#
-# from datetime import datetime, timedelta
-#
-# def add_transaction():
-#     enter_date=input("enter date of the transaction (dd/yy/mm): ")
-#     amount=int(input("enter amount you transacted: "))
-#     description=input("enter description of the transaction: ")
+#I created a list_transaction function as well that run when the user wants to see a list of all his transactions. added in the /n to create space for visibility and the enumarate function to count the transactions made
 
-#
-# transaction = {
-#         "date": date_obj,
-#         "amount": amount,
-#         "category": category,
-#         "description": description,
-#         "type": t_type
-#     }
-#     transactions.append(transaction)
-#     print("Transaction added successfully!")
+def list_transactions():
+    if not Transactions:
+        print("No transactions recorded yet.\n")
+        return
+    for y, x in enumerate(Transactions, start=1):
+        print(f"transaction 1: {x['date']} | {x['amount']} | {x['description']}\n")
+
+greet_user()
+
+while True:
+    menu()
+    choice=int(input("enter your choice: \n"))
+    if choice==1:
+        add_transactions()
+    elif choice==2:
+        list_transactions()
+    else:
+        print("You entered a wrong choice")
+
+
+
+
+
+
+
