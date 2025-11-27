@@ -6,6 +6,7 @@ class BudgetTracker:
     def __init__(self):
         self.Transactions=[]
         self.balance=0
+        self.thresholds = {}
 
     def validate_date(self):
         while True:
@@ -38,7 +39,7 @@ class BudgetTracker:
     def add_income(self):
         t_date = self.validate_date()
         amount= self.get_amount()
-        description = input("enter transaction category(eg:Salary,Groceries): ")
+        description = input("enter transaction category(eg:Salary,Groceries): ").strip().lower()
         inc=Income(t_date,amount,description)
         self.Transactions.append(inc)
         self.balance+=amount
@@ -47,10 +48,11 @@ class BudgetTracker:
     def add_expense(self):
         t_date = self.validate_date()
         amount = self.get_amount()
-        description = input("enter transaction category(eg:Salary,Groceries): ")
+        description = input("enter transaction category(eg:Salary,Groceries): ").strip().lower()
         exp=Expense(t_date,amount,description)
         self.Transactions.append(exp)
         self.balance-=amount
+        self.check_threshold_warning(description)
         print(f"transaction recorded successfully Current balance= ${self.balance}")
 
     def list_transactions(self):
@@ -202,4 +204,32 @@ class BudgetTracker:
             else:
                 print("Invalid choice! Please try again.")
                 continue
+
+    def set_threshold(self):
+        print("\n--- Set Category Threshold ---")
+
+        category = input("Enter category name: ").strip().lower()
+        amount = input("Enter max allowed spending amount: ")
+
+        try:
+            amount = float(amount)
+        except ValueError:
+            print("Invalid amount! Must be a number.")
+            return
+
+        self.thresholds[category] = amount
+        print(f"Threshold set for '{category}' at ${amount}.")
+
+    def check_threshold_warning(self, description):
+        if description not in self.thresholds:
+            return  # No threshold set
+        limit = self.thresholds[description]
+        spent = sum(
+            t.amount for t in self.Transactions
+            if t.t_type == "expense" and t.description == description
+        )
+        if spent >= limit:
+            print(f" WARNING: You have EXCEEDED your {description} budget (${limit})!")
+        elif spent >= 0.8 * limit:
+            print(f" ALERT: You have reached 80% of your {description} budget (${limit}).")
 
