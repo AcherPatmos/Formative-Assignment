@@ -19,9 +19,8 @@ class MainMenu:
         print("2. add expenses")
         print("3. list transactions")
         print("4. filter transactions")
-        print("5. exit")
-
-
+        print("5. summarize transactions")
+        print("0. exit")
 
 Bt=BudgetTracker()
 main_menu=MainMenu()
@@ -40,6 +39,11 @@ while True:
             Bt.list_transactions()
         elif choice==4:
             Bt.filter_transactions()
+        elif choice==5:
+            Bt.summarize_Transactions()
+        elif choice==0:
+            print("Exiting program. Thank you for your time!")
+            break
         else:
             print("please enter a valid choice\n")
     except ValueError:
