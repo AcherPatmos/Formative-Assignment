@@ -150,3 +150,56 @@ class BudgetTracker:
             if results:
                 self.display_results(results)
                 return
+
+    def _totals(self):
+        total_income = sum(t.amount for t in self.Transactions if t.t_type == "income")
+        total_expense = sum(t.amount for t in self.Transactions if t.t_type == "expense")
+        return total_income, total_expense
+
+    def _per_category(self):
+        cat = {}
+        for t in self.Transactions:
+            key = t.description if t.description is not None else "Uncategorized"
+            if key not in cat:
+                cat[key] = {"earned": 0.0, "spent": 0.0}
+            if t.t_type == "income":
+                cat[key]["earned"] += t.amount
+            else:  # expense
+                cat[key]["spent"] += t.amount
+        return cat
+
+    def summarize_Transactions(self):
+        if not self.Transactions:
+            print("\nNo transactions recorded yet.\n")
+            return
+        while True:
+            print('1. Total Summary')
+            print('2. Per-category Summary')
+            print('3. Exit')
+            choice=int(input("choose the summary you want: "))
+            if choice==1:
+                total_income, total_expense = self._totals()
+                balance = total_income - total_expense
+                # summary table
+                summary_table = [
+                    ["Total Income", f"${total_income:.2f}"],
+                    ["Total Expenses", f"${total_expense:.2f}"],
+                    ["Balance", f"${balance:.2f}"],
+                ]
+                print("\n=== Budget Summary ===")
+                print(tabulate(summary_table, tablefmt="fancy_grid"))
+            elif choice==2:
+                cat = self._per_category()
+                # per-category table
+                cat_rows = []
+                for description, values in sorted(cat.items()):
+                    cat_rows.append([description, f"${values['earned']:.2f}", f"${values['spent']:.2f}"])
+                print("\nPer-category totals:")
+                print(tabulate(cat_rows, headers=["Category", "Earned", "Spent"], tablefmt="grid"))
+            elif choice==3:
+                print('returning to main menu')
+                return
+            else:
+                print("Invalid choice! Please try again.")
+                continue
+
