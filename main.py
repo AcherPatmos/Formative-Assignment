@@ -20,6 +20,7 @@ class MainMenu:
         print("3. list transactions")
         print("4. filter transactions")
         print("5. summarize transactions")
+        print("6. Set Transaction Threshold")
         print("0. exit")
 
 Bt=BudgetTracker()
@@ -41,6 +42,8 @@ while True:
             Bt.filter_transactions()
         elif choice==5:
             Bt.summarize_Transactions()
+        elif choice==6:
+            Bt.set_threshold()
         elif choice==0:
             print("Exiting program. Thank you for your time!")
             break
