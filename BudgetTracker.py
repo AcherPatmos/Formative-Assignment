@@ -1,14 +1,16 @@
 from datetime import datetime, timedelta
 from tabulate import tabulate
-from Transactions import Income, Expense
+from Transactions import Income, Expense # Imported the Income and Expense classes from Transaction
 
 class BudgetTracker:
     def __init__(self):
-        self.Transactions=[]
-        self.balance=0
-        self.thresholds = {}
+        self.Transactions=[] # created an empty Transaction list to store all the transactions
 
-    def validate_date(self):
+        self.balance=0 # checks the money being recorded and adds on to the balance. it starts at 0
+
+        self.thresholds = {} #a dictionary to keep categories that have expense limits as key value pairs with their amount limits
+
+    def validate_date(self): # a helper function to help check if the user inputs the right date in the right format
         while True:
             date=input("Enter the date of the transaction (dd/mm/yyyy): \n")
             try:
@@ -23,7 +25,7 @@ class BudgetTracker:
             except ValueError:
                 print("Please enter a valid date and year \n")
 
-    def get_amount(self):
+    def get_amount(self): # a helper function to help validate the amount the user is writing
         # I used the while true loop to make sure the user would always be prompted to write a valid amount if they put in a negative number
         # Currencies are also not supported. The try is to handle invalid inputs gracefully instead of python crashing
         while True:
@@ -36,44 +38,44 @@ class BudgetTracker:
                 except ValueError:
                     print("Please enter a valid number.")
 
-    def add_income(self):
+    def add_income(self): # the add income function
         t_date = self.validate_date()
         amount= self.get_amount()
         description = input("enter transaction category(eg:Salary,Groceries): ").strip().lower()
         inc=Income(t_date,amount,description)
-        self.Transactions.append(inc)
-        self.balance+=amount
+        self.Transactions.append(inc) # appends any valid recorded transaction to the transaction list
+        self.balance+=amount # adds amount recorded to the self.balance attribute
         print(f"transaction recorded successfully Current balance= ${self.balance}")
 
-    def add_expense(self):
+    def add_expense(self): # the add expenses function
         t_date = self.validate_date()
         amount = self.get_amount()
         description = input("enter transaction category(eg:Salary,Groceries): ").strip().lower()
         exp=Expense(t_date,amount,description)
         self.Transactions.append(exp)
         self.balance-=amount
-        self.check_threshold_warning(description)
+        self.check_threshold_warning(description) # uses the check threshold limit function to see if the user is not going over their set budget and issues warnings
         print(f"transaction recorded successfully Current balance= ${self.balance}")
 
-    def list_transactions(self):
+    def list_transactions(self): #list transactions functionality
         if not self.Transactions:
             print("No transactions recorded yet.")
             return
-        table=[]
+        table=[] # created an empty table list to store the transactions already recorded
         for x in self.Transactions:
-            table.append([x.date,x.t_type.upper(),x.amount,x.description])
+            table.append([x.date,x.t_type.upper(),x.amount,x.description]) # searches all the transactions recorded in self.Transactions and adds them to the table list
         headers=["Date","Type","Amount","Description"]
         print("Transactions list")
         print(tabulate(table,headers,tablefmt="fancy_grid"))
         print(f'current balance= ${self.balance}')
 
-    def filter_transactions(self):
+    def filter_transactions(self): #added in the filter Transactions function
         print("choose one of the filter options below: ")
         print("1. filter by Date")
         print("2. filter by Transaction type")
         print("3. filter by description")
         print("4. exit")
-        while True:
+        while True: #created a loop to help the user make choices easily without having to restart the whole process
             option= int(input("Enter your choice: "))
             try:
                 if option == 1:
@@ -90,14 +92,14 @@ class BudgetTracker:
             except ValueError:
                 print("please enter a valid choice")
 
-    def display_results(self, results):
+    def display_results(self, results): #this helper function helps display the filtered results
         if not results:
             print("No matching transactions found")
             return
         table = [
             [x.date.strftime("%Y/%m"), x.t_type.upper(), x.amount, x.description]
             for x in results
-        ]
+        ] #appends the results that matches what the user requested to this table list
         print("\nFiltered Results:")
         print(tabulate(table, ["Date", "Type", "Amount", "Description"], tablefmt="fancy_grid"))
 
