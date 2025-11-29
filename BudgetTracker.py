@@ -25,6 +25,20 @@ class BudgetTracker:
             except ValueError:
                 print("Please enter a valid date and year \n")
 
+    def validate_category(self): # Ensures user enters a valid category (letters only).
+        while True:
+            category = input("Enter category name: ").strip().lower()
+
+            if not category:
+                print("Category cannot be empty. Please try again.")
+                continue
+
+            if not category.replace(" ", "").isalpha():
+                print("Invalid category! Use letters only (e.g., groceries, rent, salary).")
+                continue
+
+            return category
+
     def get_amount(self): # a helper function to help validate the amount the user is writing
         # I used the while true loop to make sure the user would always be prompted to write a valid amount if they put in a negative number
         # Currencies are also not supported. The try is to handle invalid inputs gracefully instead of python crashing
@@ -41,7 +55,7 @@ class BudgetTracker:
     def add_income(self): # the add income function
         t_date = self.validate_date()
         amount= self.get_amount()
-        description = input("enter transaction category(eg:Salary,Groceries): ").strip().lower()
+        description = self.validate_category()
         inc=Income(t_date,amount,description)
         self.Transactions.append(inc) # appends any valid recorded transaction to the transaction list
         self.balance+=amount # adds amount recorded to the self.balance attribute
@@ -50,7 +64,7 @@ class BudgetTracker:
     def add_expense(self): # the add expenses function
         t_date = self.validate_date()
         amount = self.get_amount()
-        description = input("enter transaction category(eg:Salary,Groceries): ").strip().lower()
+        description = self.validate_category()
         exp=Expense(t_date,amount,description)
         self.Transactions.append(exp)
         self.balance-=amount
@@ -231,7 +245,7 @@ class BudgetTracker:
         print("\n--- Set Category Threshold ---")
 
         # category name converted to lowercase for consistent matching
-        category = input("Enter category name: ").strip().lower()
+        category = self.validate_category()
 
         # ask for maximum allowed spending for that category
         amount = input("Enter max allowed spending amount: ")
