@@ -57,10 +57,16 @@ python3 main.py
 
 # Menu
 Add income
+
 Add expense
+
 List transactions
+
 Filter (by category / type / month)
+
 Show summary
+
 Set Transaction Threshold
+
 Exit
 
