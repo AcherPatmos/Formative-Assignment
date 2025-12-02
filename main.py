@@ -31,9 +31,13 @@ main_menu.greet_user()  # Show the greeting message once at program start
 # Program loop — runs until the user selects exit (choice 0)
 while True:
     main_menu.menu()  # Show menu options
-    choice = int(input("enter your choice: "))
 
     try:
+        User_input = input("enter your choice: ")
+        if User_input == " ":
+            print('choice cannot be blank. please enter a valid choice')
+            continue
+        choice = int(User_input)
         # Match user input to menu actions
         if choice == 1:
             Bt.add_income()            # Calls method to add an income transaction
