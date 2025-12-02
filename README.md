@@ -103,6 +103,11 @@ enter your choice: 3
 
 │ Date       │ Amount   │ Type  │ Description │
 
-
 │ 20/04/2025 │ 1500.00 │ income │ salary │
+
+# Basic Test Assertions
+
+These simple tests verify that adding income, adding expenses, and computing the balance work correctly.
+
+(Tests are stored in a separate test file)
 
