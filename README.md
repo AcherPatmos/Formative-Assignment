@@ -13,7 +13,7 @@ Acher_Prog1FormativeProject_F25/
 
 ├── Transactions.py         # Contains Transaction, Income, and Expense classes
 
-├── main.py                 # Main menu + program loop (user interface)
+├── main.py                 # Main menu + program loop 
 
 └── tests.py                # Basic test assertions for core functionality (optional)
 
