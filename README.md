@@ -70,3 +70,39 @@ Set Transaction Threshold
 
 Exit
 
+# Sample Interactions
+
+## Adding Income
+welcome to your BudgetTracker!
+
+please enter your name: Acher
+
+Hello Acher let's get started with your budget tracking!
+
+choose one of the options below
+1. add income
+2. add expenses
+3. list transactions
+4. filter transactions
+5. summarize transactions
+6. Set Transaction Threshold
+0. exit
+
+enter your choice: 1
+
+Enter transaction date (DD/MM/YYYY): 20/04/2025
+
+Enter amount: 1500
+
+Enter transaction category(eg:Salary,Groceries): salary
+
+transaction recorded successfully Current balance= $1500.0
+
+## List Transactions
+enter your choice: 3
+
+│ Date       │ Amount   │ Type  │ Description │
+
+
+│ 20/04/2025 │ 1500.00 │ income │ salary │
+
