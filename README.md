@@ -17,7 +17,7 @@ All data is stored in memory for the duration of the session (no file I/O).
 
 ## Features
 
-- Add transactions: date, amount, category, description, and type (income/expense).
+- Add transactions: date, amount, category/description, and type (income/expense).
 - List transactions in a readable table.
 - Filter transactions by type, category, or month (YYYY-MM).
 - set threshold amounts for expenses
