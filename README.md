@@ -1,75 +1,62 @@
-# BudgetTracker – Personal Finance Management (Command-Line Application)
+# Budget Tracker
 
-BudgetTracker is a simple, beginner-friendly Python console application designed to help users manage their money, track their income and expenses, filter transactions, and receive warnings when they exceed a defined spending threshold.
-This project uses Object-Oriented Programming (OOP) principles, classes, inheritance, and external libraries like tabulate to display clean tables and timedelta for date validations
+## Overview
+BudgetTracker is a simple, beginner-friendly Python console application designed to help users manage their money, track their income and expenses, filter transactions, and receive warnings when they exceed a defined spending threshold. This project uses Object-Oriented Programming (OOP) principles, classes, inheritance, and external libraries like tabulate to display clean tables and timedelta for date validations.
+All data is stored in memory for the duration of the session (no file I/O).
 
-# Project Structure
+## Files
 
-Acher_Prog1FormativeProject_F25/
+**BudgetTracker.py**  --Contains the BudgetTracker class and all program logic
 
-│
+**Transactions.py**   --Contains Transaction, Income, and Expense classes
 
-├── BudgetTracker.py        # Contains the BudgetTracker class and all program logic
+**main.py**           --Main menu + program loop 
 
-├── Transactions.py         # Contains Transaction, Income, and Expense classes
-
-├── main.py                 # Main menu + program loop 
-
-└── tests.py                # Basic test assertions for core functionality (optional)
+**tests.py**          --Basic test assertions for core functionality (optional)
 
 
-# Core features
+## Features
 
-### Record transactions
+- Add transactions: date, amount, category, description, and type (income/expense).
+- List transactions in a readable table.
+- Filter transactions by type, category, or month (YYYY-MM).
+- set threshold amounts for expenses
+- Summary: total income, total expenses, balance, and per-category totals.
+- Input validation: enforces date format, numeric positive amounts, valid menu choices, and valid name user inputs.
+- Session-only: no saving or loading to files — data remains in memory.
 
-Add income or expense entries with date, amount, category.
+## Running
 
-### List transactions
+1. Ensure you have Python 3 installed.
+2. Clone or download this repository.
+3. Navigate to the project directory in your terminal.
+4. install required dependencies
+   ```bash
+   pip install tabulate
+   ```
+6. Run the program:
+   ```bash
+   python main.py (py main.py for window users)
+   ```
+7. Follow the on-screen menu to add transactions, view summaries, and filter data.
 
-Show all recorded transactions in a neat table.
+## Requirements
 
-### Filter transactions
+- Python 3.x
+- User has to install the tabulate library
 
-Filter by month (YYYY-MM), type (income/expense), or Category keyword.
+## Project Structure
 
-### Summaries
-
-Total Income, Total Expenses, Balance.
-
-Per-category totals separated into earned and spent.
-
-### Budget threshold warnings(optional feature implemented)
-
-Set a spending limit per category and receive automatic alerts (80% and exceeded).
-
-
-Input validation
-
-Validates dates, numeric amounts, and menu choices.
-
-# Instructions on Running the Program
-Requirements: Python 3.8+ (should work on Python 3.6+).
-
-From PowerShell or any other CLI in the project root run: py main.py
-
-For macOS/Linux:
-python3 main.py
-
-# Menu
-Add income
-
-Add expense
-
-List transactions
-
-Filter (by category / type / month)
-
-Show summary
-
-Set Transaction Threshold
-
-Exit
-
+```
+.
+├── BudgetTracker.py
+├── main.py
+├── Transactions.py
+├── Basic_Test.py
+├── README.md
+├── Project Reflection.txt
+└── Project Screenshots/
+```
 # Sample Interactions
 
 ## Adding Income
@@ -110,4 +97,9 @@ enter your choice: 3
 These simple tests verify that adding income, adding expenses, and computing the balance work correctly.
 
 (Tests are stored in a separate test file)
+# Notes
 
+What I learned: basic OOP in Python, building a user-friendly CLI, and careful input validation.
+Future Improvement: storing user's data, adding in data visualization features
+# Author
+Patmos Acher Mpakaniye
