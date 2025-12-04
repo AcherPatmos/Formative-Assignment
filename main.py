@@ -7,9 +7,17 @@ class MainMenu:
     def greet_user(self):
         # Greets the user at the start of the program
         print("welcome to your BudgetTracker!\n")
-        name = input("please enter your name: ")
-        print("Hello" + " " + name + " " + "let's get started with your budget tracking!")
-        return name  # Return user's name in case it's needed later
+        while True:
+            User_name = input("Enter your name: ")
+            if not User_name.strip(): # checks if the name space is not empty
+                print("Please enter a valid name (name cannot be empty)")
+                continue
+            if not User_name.replace(" ", "").isalpha(): # checks if the user is using letters only and not numbers as their names
+                print("Please enter a valid name (letters only, no numbers)")
+                continue
+            break
+
+        print(f"Hello, {User_name}, let's get started!")
 
     def menu(self):
         # Displays the main options the user can choose from
